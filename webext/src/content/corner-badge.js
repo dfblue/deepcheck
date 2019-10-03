@@ -4,15 +4,14 @@ import styled from 'styled-components'
 
 /* Remeber, you can't import css here because it wouldn't be bundled into anything since this is content script that manipulates the loaded page */
 
-class CornerBadge extends React.Component {
-  render () {
-    const badgeColor = 'green'
-    const badgeSize = 33
-    const textColor = 'white'
-    const textPadding = 3
-    const fontSize = 10
+const badgeColor = 'green'
+const badgeSize = 33
+const textColor = 'white'
+const textPadding = 3
+const fontSize = 10
 
-    const Badge = styled.div`
+// Create styled components out here so we don't recreate on each render
+const Badge = styled.div`
       position: fixed;
       top: 0;
       left: 0;
@@ -22,9 +21,13 @@ class CornerBadge extends React.Component {
       border-width: ${badgeSize}px ${badgeSize}px 0 0;
       border-color: ${badgeColor} transparent transparent transparent;
       z-index: 99999;
+
+      :hover {
+        /* add hover styles */
+      }
     `
 
-    const BadgeText = styled.div`
+const BadgeText = styled.div`
       position: fixed;
       top: ${textPadding}px;
       left: ${textPadding}px;
@@ -34,6 +37,8 @@ class CornerBadge extends React.Component {
       color: ${textColor};
     `
 
+class CornerBadge extends React.Component {
+  render () {
     const score = 80
 
     return (
