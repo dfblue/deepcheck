@@ -1,7 +1,7 @@
 const path = require('path')
 const CopyPlugin = require('copy-webpack-plugin')
 const HTMLWebPackPlugin = require('html-webpack-plugin')
-const ExtensionReloader = require('webpack-extension-reloader');
+const ExtensionReloader = require('webpack-extension-reloader')
 
 module.exports = {
   mode: 'development',
@@ -27,9 +27,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        use: [{
-          loader: 'css-loader'
-        }]
+        use: ['style-loader', 'css-loader']
       }
     ]
   },
