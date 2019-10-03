@@ -3,9 +3,15 @@
   "version": "1.0",
   "description": "The internet's missing reputation checker",
   "permissions": [
-    "activeTab",
-    "declarativeContent",
+    "activeTab", 
     "storage"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["corner-badge.js"],
+      "run_at": "document_end"
+    }
   ],
   "options_page": "options.html",
   "background": {
@@ -14,7 +20,8 @@
     ],
     "persistent": false
   },
-  "page_action": {
+  "browser_action": {
+    "default_title": "Deepcheck",
     "default_popup": "popup.html",
     "default_icon": {
       "16": "images/get_started16.png",
