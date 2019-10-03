@@ -12,6 +12,7 @@ const fontSize = 10
 
 // Create styled components out here so we don't recreate on each render
 const Badge = styled.div`
+      pointer-events: none;
       position: fixed;
       top: 0;
       left: 0;
@@ -53,11 +54,10 @@ class CornerBadge extends React.Component {
 
 window.onload = function () {
   chrome.storage.sync.get('enabled', (data) => {
-    if (data.enabled) {
-      const wrapper = document.createElement('div')
-      wrapper.id = 'corner-badge'
-      document.body.appendChild(wrapper)
-      ReactDOM.render(<CornerBadge />, document.getElementById('corner-badge')) // render might not be the right method
-    }
+    if (!data.enabled) { return }
+    const wrapper = document.createElement('div')
+    wrapper.id = 'corner-badge'
+    document.body.appendChild(wrapper)
+    ReactDOM.render(<CornerBadge />, document.getElementById('corner-badge')) // render might not be the right method
   })
 }
