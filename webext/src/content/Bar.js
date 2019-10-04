@@ -16,6 +16,7 @@ const Bar = styled.div`
   width: 100%;
   height: ${barSize}px;
   background-color: ${barColor};
+  opacity: 0.75;
   
   :hover {
     /* add hover styles */
