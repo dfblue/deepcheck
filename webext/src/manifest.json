@@ -9,7 +9,7 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["corner-badge.js"],
+      "js": ["injected-content.js"],
       "run_at": "document_end"
     }
   ],

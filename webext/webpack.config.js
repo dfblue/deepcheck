@@ -8,7 +8,7 @@ module.exports = {
   devtool: 'cheap-module-source-map',
   entry: {
     background: './src/background/background.js',
-    'corner-badge': './src/content/corner-badge.js',
+    'injected-content': './src/content/injected-content.js',
     options: './src/options/options.js',
     popup: './src/popup/popup.js'
   },
@@ -49,7 +49,7 @@ module.exports = {
     new ExtensionReloader({
       config: 'webpack.dev.js',
       entries: {
-        contentScript: 'corner-badge',
+        contentScript: 'injected-content',
         background: 'background',
         extensionPage: 'popup'
       }

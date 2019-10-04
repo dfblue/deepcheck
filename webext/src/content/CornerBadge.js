@@ -1,8 +1,5 @@
 import React from 'react'
-import ReactDOM from 'react-dom'
 import styled from 'styled-components'
-
-/* Remeber, you can't import css here because it wouldn't be bundled into anything since this is content script that manipulates the loaded page */
 
 const badgeColor = 'green'
 const badgeSize = 33
@@ -38,26 +35,16 @@ const BadgeText = styled.div`
       color: ${textColor};
     `
 
-class CornerBadge extends React.Component {
+export default class CornerBadge extends React.Component {
   render () {
     const score = 80
 
     return (
       <Badge>
         <BadgeText>
-          { score }
+          {score}
         </BadgeText>
       </Badge>
     )
   }
-}
-
-window.onload = function () {
-  chrome.storage.sync.get('enabled', (data) => {
-    if (!data.enabled) { return }
-    const wrapper = document.createElement('div')
-    wrapper.id = 'corner-badge'
-    document.body.appendChild(wrapper)
-    ReactDOM.render(<CornerBadge />, document.getElementById('corner-badge')) // render might not be the right method
-  })
 }
