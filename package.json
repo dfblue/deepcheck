@@ -1,5 +1,5 @@
 {
-  "name": "deepcheck-ext",
+  "name": "deepcheck-webext",
   "version": "1.0.0",
   "description": "",
   "main": "background.js",
