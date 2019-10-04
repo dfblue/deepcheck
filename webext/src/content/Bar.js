@@ -1,5 +1,6 @@
 import React from 'react'
 import styled from 'styled-components'
+import posed from 'react-pose'
 
 const barColor = 'lavenderblush'
 const barSize = 20
@@ -20,7 +21,12 @@ const Bar = styled.div`
       }
     `
 
-const BarText = styled.div`
+const Text = posed.div({
+  hidden: { opacity: 0, y: 5, transition: { duration: 700 } },
+  visible: { opacity: 1, y: 0, transition: { duration: 700 } }
+})
+
+const BarText = styled(Text)`
       pointer-events: none;
       padding: ${textPadding}px;
       font-family: monospace;
@@ -31,13 +37,44 @@ const BarText = styled.div`
     `
 
 export default class BarComponent extends React.Component {
-  render () {
-    const text = 'Website started 15 years ago'
+  constructor () {
+    super()
+    this.state = {
+      textLines: ['Website started 15 years ago', 'Website sends spam email', 'Website hosts malware', 'Page has toxic content'],
+      textIndex: 0,
+      textVisible: false
+    }
+  }
 
+  componentDidMount () {
+    const timer = setInterval(() => {
+      this.setState((prevState) => {
+        let newIndex = prevState.textIndex
+        if (!prevState.textVisible) {
+          newIndex = (prevState.textIndex + 1) % prevState.textLines.length
+        }
+
+        return { textIndex: newIndex, textVisible: !prevState.textVisible }
+      })
+    }, 1000)
+
+    this.setState({
+      textTimer: timer
+    })
+  }
+
+  componentWillUnmount () {
+    if (this.state.textTimer) {
+      clearInterval(this.state.textTimer)
+    }
+  }
+
+  render () {
+    const { textLines, textIndex, textVisible } = this.state
     return (
       <Bar>
-        <BarText>
-          {text}
+        <BarText pose={ textVisible ? 'visible' : 'hidden'}>
+          {textLines[textIndex]}
         </BarText>
       </Bar>
     )
