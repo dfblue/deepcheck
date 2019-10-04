@@ -4,7 +4,7 @@
   "description": "",
   "main": "background.js",
   "scripts": {
-    "dev": "NODE_ENV=development webpack --config webpack.config.js --watch"
+    "dev": "NODE_ENV=development npx webpack --config webpack.config.js --watch"
   },
   "author": "Sid",
   "license": "UNLICENSED",
