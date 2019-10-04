@@ -10,6 +10,7 @@ window.onload = function () {
     if (!data.enabled) { return }
     const wrapper = document.createElement('div')
     wrapper.id = 'injected-content'
+    wrapper.style = 'position: fixed; width: 100%; z-index: 999999;'
     document.body.prepend(wrapper)
     ReactDOM.render(<Bar />, document.getElementById('injected-content')) // render might not be the right method
   })

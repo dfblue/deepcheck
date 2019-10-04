@@ -15,7 +15,6 @@ const Bar = styled.div`
   pointer-events: none;
   width: 100%;
   height: ${barSize}px;
-  z-index: 99999;
   background-color: ${barColor};
   
   :hover {
