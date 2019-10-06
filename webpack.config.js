@@ -34,7 +34,8 @@ module.exports = {
   plugins: [
     new CopyPlugin([
       { from: './src/manifest.json', to: path.resolve(__dirname, 'build/manifest.json') },
-      { from: './src/images', to: path.resolve(__dirname, 'build/images') }
+      { from: './src/images', to: path.resolve(__dirname, 'build/images') },
+      { from: './node_modules/webextension-polyfill/dist/browser-polyfill.js', to: path.resolve(__dirname, 'build/browser-polyfill.js') }
     ]),
     new HTMLWebPackPlugin({
       template: './src/options/options.html',

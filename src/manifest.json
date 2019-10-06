@@ -9,7 +9,10 @@
   "content_scripts": [
     {
       "matches": ["<all_urls>"],
-      "js": ["injected-content.js"],
+      "js": [
+        "browser-polyfill.js",
+        "injected-content.js"
+      ],
       "run_at": "document_end"
     }
   ],

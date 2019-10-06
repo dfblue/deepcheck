@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import posed from 'react-pose'
+import PropTypes from 'prop-types'
 
 const barColor = 'lavenderblush'
 const barSize = 20
@@ -44,7 +45,6 @@ export default class BarComponent extends React.Component {
   constructor () {
     super()
     this.state = {
-      textLines: ['Website started 15 years ago', 'Website sends spam email', 'Website hosts malware', 'Page has toxic content'],
       textIndex: 0,
       textVisible: false
     }
@@ -55,7 +55,7 @@ export default class BarComponent extends React.Component {
       this.setState((prevState) => {
         let newIndex = prevState.textIndex
         if (!prevState.textVisible) {
-          newIndex = (prevState.textIndex + 2) % prevState.textLines.length
+          newIndex = (prevState.textIndex + 2) % this.props.lines.length
         }
 
         return { textIndex: newIndex, textVisible: !prevState.textVisible }
@@ -74,16 +74,26 @@ export default class BarComponent extends React.Component {
   }
 
   render () {
-    const { textLines, textIndex, textVisible } = this.state
+    const { textIndex, textVisible } = this.state
+    const { lines } = this.props
+
     return (
       <Bar>
         <BarText pose={ textVisible ? 'visible' : 'hidden'}>
-          {textLines[textIndex]}
+          {lines[textIndex]}
         </BarText>
         <BarText pose={textVisible ? 'hidden' : 'visible'}>
-          {textLines[(textIndex + 1) % textLines.length]}
+          {lines[(textIndex + 1) % lines.length]}
         </BarText>
       </Bar>
     )
   }
+}
+
+BarComponent.defaultProps = {
+  lines: []
+}
+
+BarComponent.propTypes = {
+  lines: PropTypes.arrayOf(PropTypes.string)
 }
