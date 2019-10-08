@@ -9,7 +9,7 @@ const textColor = 'lightseagreen'
 const textPadding = 3
 const fontSize = 12
 
-const animationDelay = 2000
+const animationDelay = 3000
 
 // Create styled components out here so we don't recreate on each render
 const Bar = styled.div`
