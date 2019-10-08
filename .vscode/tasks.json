@@ -7,6 +7,32 @@
             "type": "npm",
             "script": "dev",
             "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "clean",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "build",
+            "group": "build",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "package",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "publish",
+            "problemMatcher": []
+        },
+        {
+            "type": "npm",
+            "script": "incrementVersion",
+            "problemMatcher": []
         }
     ]
 }

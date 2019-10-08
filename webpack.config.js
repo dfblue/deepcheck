@@ -4,8 +4,6 @@ const HTMLWebPackPlugin = require('html-webpack-plugin')
 const ExtensionReloader = require('webpack-extension-reloader')
 
 module.exports = {
-  mode: 'development',
-  devtool: 'cheap-module-source-map',
   entry: {
     background: './src/background/background.js',
     'injected-content': './src/content/injected-content.js',

@@ -1,10 +1,14 @@
 {
   "name": "deepcheck-webext",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
-  "main": "background.js",
   "scripts": {
-    "dev": "NODE_ENV=development npx webpack --config webpack.config.js --watch"
+    "dev": "npm run clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
+    "clean": "rm -rf build/",
+    "incrementVersion": "node incrementVersion.js patch",
+    "build": "npm run clean && NODE_ENV=production npx webpack --config webpack.config.js --mode=production",
+    "package": "cd build && zip -r deepcheck-webext.zip *",
+    "publish": "npm run build && npm run package && node publish.js build/deepcheck-webext.zip"
   },
   "author": "Sid",
   "license": "UNLICENSED",
@@ -29,8 +33,10 @@
     "@types/chrome": "0.0.89",
     "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
+    "chrome-webstore-upload": "^0.2.2",
     "copy-webpack-plugin": "^5.0.4",
     "css-loader": "^2.1.1",
+    "dotenv": "^8.1.0",
     "eslint": "^6.5.1",
     "eslint-config-standard": "^14.1.0",
     "eslint-plugin-import": "^2.18.2",

@@ -1,14 +1,16 @@
 {
   "name": "deepcheck",
-  "version": "1.0",
+  "version": "1.0.1",
   "description": "The internet's missing reputation checker",
   "permissions": [
-    "activeTab", 
+    "activeTab",
     "storage"
   ],
   "content_scripts": [
     {
-      "matches": ["<all_urls>"],
+      "matches": [
+        "<all_urls>"
+      ],
       "js": [
         "browser-polyfill.js",
         "injected-content.js"
@@ -27,17 +29,11 @@
     "default_title": "Deepcheck",
     "default_popup": "popup.html",
     "default_icon": {
-      "16": "images/get_started16.png",
-      "32": "images/get_started32.png",
-      "48": "images/get_started48.png",
-      "128": "images/get_started128.png"
+      "128": "images/dfb_logo_128.png"
     }
   },
   "icons": {
-    "16": "images/get_started16.png",
-    "32": "images/get_started32.png",
-    "48": "images/get_started48.png",
-    "128": "images/get_started128.png"
+    "128": "images/dfb_logo_128.png"
   },
   "manifest_version": 2
 }
