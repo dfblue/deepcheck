@@ -1,6 +1,6 @@
 {
   "name": "deepcheck",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "The internet's missing reputation checker",
   "permissions": [
     "activeTab",
