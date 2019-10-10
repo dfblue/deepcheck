@@ -1,6 +1,7 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import browser from 'webextension-polyfill'
+import api from '../utils/api.js'
 
 browser.runtime.onInstalled.addListener(async () => {
   console.log('Extension installed')
@@ -10,10 +11,11 @@ browser.runtime.onInstalled.addListener(async () => {
   switch (installType) {
     case 'admin':
     case 'normal':
-      checkUrl = 'https://us-central1-dfblue.cloudfunctions.net/functions/check'
+      checkUrl = api
       break
     case 'development':
-      checkUrl = 'http://localhost:5000/dfblue/us-central1/functions/check'
+      checkUrl = 'http://localhost:3000/api/v1/check'
+      await browser.browserAction.setIcon({ path: '../images/icon128_dev.png' })
       break
   }
 

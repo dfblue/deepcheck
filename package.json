@@ -1,14 +1,14 @@
 {
   "name": "deepcheck-webext",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "",
   "scripts": {
-    "dev": "npm run clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
-    "clean": "rm -rf build/",
-    "incrementVersion": "node incrementVersion.js patch",
-    "build": "npm run clean && NODE_ENV=production npx webpack --config webpack.config.js --mode=production",
-    "package": "cd build && zip -r deepcheck-webext.zip *",
-    "publish": "npm run build && npm run package && node publish.js build/deepcheck-webext.zip"
+    "webext:dev": "npm run webext:clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
+    "webext:clean": "rm -rf build/",
+    "webext:version": "node version.js",
+    "webext:build": "npm run webext:clean && NODE_ENV=production npx webpack --config webpack.config.js --mode=production",
+    "webext:package": "cd build && zip -r deepcheck-webext.zip *",
+    "webext:deploy": "npm run webext:build && npm run webext:package && node deploy.js build/deepcheck-webext.zip"
   },
   "author": "Sid",
   "license": "UNLICENSED",

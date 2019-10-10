@@ -1,38 +1,33 @@
 {
-    // See https://go.microsoft.com/fwlink/?LinkId=733558 
-    // for the documentation about the tasks.json format
-    "version": "2.0.0",
-    "tasks": [
-        {
-            "type": "npm",
-            "script": "dev",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "clean",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "build",
-            "group": "build",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "package",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "publish",
-            "problemMatcher": []
-        },
-        {
-            "type": "npm",
-            "script": "incrementVersion",
-            "problemMatcher": []
-        }
-    ]
+  // See https://go.microsoft.com/fwlink/?LinkId=733558 
+  // for the documentation about the tasks.json format
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "type": "npm",
+      "script": "webext:dev",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "webext:version",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "webext:deploy",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "webext:build",
+      "group": "build",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "webext:package",
+      "problemMatcher": []
+    }
+  ]
 }
