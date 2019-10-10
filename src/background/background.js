@@ -11,7 +11,7 @@ browser.runtime.onInstalled.addListener(async () => {
   switch (installType) {
     case 'admin':
     case 'normal':
-      checkUrl = api
+      checkUrl = `${api}/check`
       break
     case 'development':
       checkUrl = 'http://localhost:3000/api/v1/check'
