@@ -33,6 +33,7 @@ paths.forEach((p) => {
   console.log(`${p} - Incrementing ${currentVersion} by ${release} resulting in ${nextVersion}`)
 
   fs.writeFileSync(p, JSON.stringify(json, null, 2))
+  fs.appendFileSync(p, '\n')
 })
 
 const api = './src/utils/api.js'
