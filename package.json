@@ -1,6 +1,6 @@
 {
   "name": "deepcheck-webext",
-  "version": "1.0.6",
+  "version": "1.0.8",
   "description": "",
   "scripts": {
     "webext:dev": "npm run webext:clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
