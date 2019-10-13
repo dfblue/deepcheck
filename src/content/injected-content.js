@@ -16,7 +16,10 @@ window.onload = async () => {
   const response = await fetch(checkUrl, {
     method: 'POST',
     body: JSON.stringify({ url: window.location.href, content: document.documentElement.innerHTML }),
-    headers: { 'Content-Type': 'application/json' }
+    headers: {
+      'Content-Type': 'application/json',
+      Accept: 'application/json'
+    }
   })
 
   const json = await response.json()
