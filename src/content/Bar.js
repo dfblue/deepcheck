@@ -13,6 +13,7 @@ const animationDelay = 4000
 
 // Create styled components out here so we don't recreate on each render
 const Bar = styled.div`
+  position: fixed;
   pointer-events: none;
   width: 100%;
   height: ${barSize}px;
