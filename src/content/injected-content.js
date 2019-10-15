@@ -24,9 +24,10 @@ window.onload = async () => {
 
   const json = await response.json()
 
+  document.body.style.marginBottom = '22px'
   const wrapper = document.createElement('div')
   wrapper.id = 'dfb-injected-content'
-  wrapper.style = 'bottom:22px; position: fixed; width: 100%; z-index: 999999;'
+  wrapper.style = 'pointer-events: none; bottom:22px; position: fixed; width: 100%; z-index: 999999;'
   document.body.appendChild(wrapper)
   ReactDOM.render(<Bar lines={ json.lines } />, document.getElementById('dfb-injected-content')) // render might not be the right method
 }
