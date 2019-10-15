@@ -3,11 +3,11 @@ import styled from 'styled-components'
 import posed from 'react-pose'
 import PropTypes from 'prop-types'
 
-const barColor = 'lavenderblush'
-const barSize = 20
-const textColor = 'lightseagreen'
+const barColor = '#333333'
+const barSize = 22
+const textColor = '#12C0E6'
 const textPadding = 3
-const fontSize = 12
+const fontSize = 13
 
 const animationDelay = 4000
 
@@ -18,7 +18,7 @@ const Bar = styled.div`
   width: 100%;
   height: ${barSize}px;
   background-color: ${barColor};
-  opacity: 0.75;
+  opacity: 1;
   
   :hover {
     /* add hover styles */

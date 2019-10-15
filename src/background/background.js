@@ -3,6 +3,10 @@ import 'regenerator-runtime/runtime'
 import browser from 'webextension-polyfill'
 import api from '../utils/api.js'
 
+const setDevBadge = async () => {
+  await browser.browserAction.setBadgeText({ text: 'DEV' })
+}
+
 browser.runtime.onInstalled.addListener(async () => {
   console.log('Extension installed')
 
@@ -15,7 +19,7 @@ browser.runtime.onInstalled.addListener(async () => {
       break
     case 'development':
       checkUrl = 'http://localhost:3000/api/v1/check'
-      await browser.browserAction.setIcon({ path: '../images/icon128_dev.png' })
+      await setDevBadge()
       break
   }
 
