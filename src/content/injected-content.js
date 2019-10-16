@@ -13,9 +13,18 @@ window.onload = async () => {
 
   if (!enabled) { return }
 
+  const version = browser.runtime.getManifest().version
+  const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
+  const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
+  const analytics = { version, window: { width, height } }
+
+  const url = window.location.href
+  const content = document.body.innerHTML
+  const links = document.body.querySelectorAll('a')
+
   const response = await fetch(checkUrl, {
     method: 'POST',
-    body: JSON.stringify({ url: window.location.href, content: document.documentElement.innerHTML }),
+    body: JSON.stringify({ url, content, links, analytics }),
     headers: {
       'Content-Type': 'application/json',
       Accept: 'application/json'

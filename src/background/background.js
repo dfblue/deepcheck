@@ -29,3 +29,7 @@ browser.runtime.onInstalled.addListener(async () => {
   })
   console.log('Initial storage synced')
 })
+
+browser.runtime.onMessage.addListener((request, sender, sendResponse) => {
+  // const { payload, type } = request
+})
