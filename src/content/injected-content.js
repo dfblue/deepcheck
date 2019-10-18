@@ -13,12 +13,19 @@ window.onload = async () => {
 
   if (!enabled) { return }
 
+  document.body.style.marginBottom = '22px'
+  const wrapper = document.createElement('div')
+  wrapper.id = 'dfb-injected-content'
+  wrapper.style = 'pointer-events: none; bottom:22px; position: fixed; width: 100%; z-index: 999999;'
+  document.body.appendChild(wrapper)
+  ReactDOM.render(<Bar lines={ [] } />, document.getElementById('dfb-injected-content')) // render might not be the right method
+
   const version = browser.runtime.getManifest().version
   const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
   const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
   const analytics = { version, window: { width, height } }
 
-  const url = window.location.href
+  const url = `${window.location.protocol}//${window.location.hostname}`
   const content = document.body.innerHTML
   const links = document.body.querySelectorAll('a')
 
@@ -33,10 +40,5 @@ window.onload = async () => {
 
   const json = await response.json()
 
-  document.body.style.marginBottom = '22px'
-  const wrapper = document.createElement('div')
-  wrapper.id = 'dfb-injected-content'
-  wrapper.style = 'pointer-events: none; bottom:22px; position: fixed; width: 100%; z-index: 999999;'
-  document.body.appendChild(wrapper)
-  ReactDOM.render(<Bar lines={ json.lines } />, document.getElementById('dfb-injected-content')) // render might not be the right method
+  ReactDOM.render(<Bar lines={ json.lines } />, document.getElementById('dfb-injected-content'))
 }
