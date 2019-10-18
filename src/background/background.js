@@ -1,10 +1,11 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 import browser from 'webextension-polyfill'
+import uuidv4 from 'uuid/v4'
 import api from '../utils/api.js'
 
-const setDevBadge = async () => {
-  await browser.browserAction.setBadgeText({ text: 'DEV' })
+const setBadge = async (text) => {
+  await browser.browserAction.setBadgeText({ text })
 }
 
 browser.runtime.onInstalled.addListener(async () => {
@@ -19,12 +20,13 @@ browser.runtime.onInstalled.addListener(async () => {
       break
     case 'development':
       checkUrl = 'http://localhost:3000/api/v1/check'
-      await setDevBadge()
+      await setBadge('DEV')
       break
   }
 
   await browser.storage.sync.set({
     enabled: true,
+    clientId: uuidv4(), // generate new id for each installation
     checkUrl
   })
   console.log('Initial storage synced')

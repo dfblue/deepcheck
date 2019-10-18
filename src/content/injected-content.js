@@ -9,7 +9,7 @@ import Bar from './Bar'
 /* Remember, you can't import css because it wouldn't be bundled into anything since this is content script that manipulates the loaded page */
 
 window.onload = async () => {
-  const { enabled, checkUrl } = await browser.storage.sync.get(['enabled', 'checkUrl'])
+  const { enabled, clientId, checkUrl } = await browser.storage.sync.get(['enabled', 'clientId', 'checkUrl'])
 
   if (!enabled) { return }
 
@@ -23,7 +23,7 @@ window.onload = async () => {
   const version = browser.runtime.getManifest().version
   const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
   const height = window.innerHeight || document.documentElement.clientHeight || document.body.clientHeight
-  const analytics = { version, window: { width, height } }
+  const analytics = { version, window: { width, height }, clientId }
 
   const url = `${window.location.protocol}//${window.location.hostname}`
   const content = document.body.innerHTML
