@@ -4,6 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import browser from 'webextension-polyfill'
 import Version from '../utils/Version'
+import '../css/main.css'
 
 class Options extends React.Component {
   constructor (props) {
@@ -31,42 +32,45 @@ class Options extends React.Component {
     const { enabled, checkUrl, installType } = this.state
 
     const developmentOptions = (
-      <>
-        <h1>Development options</h1>
-        <label>Check endpoint</label>
-        <br />
-        <input type="text" name="endpoint" value={checkUrl} onChange={(event) => {
-          this.setState({
-            checkUrl: event.target.value
-          })
-        }} />
-      </>
+      <div className="row">
+        <div className="col-sm">
+          <h1>Development options</h1>
+          <label>Check endpoint</label>
+          <br />
+          <input type="text" name="endpoint" value={checkUrl} onChange={(event) => {
+            this.setState({
+              checkUrl: event.target.value
+            })
+          }} />
+        </div>
+      </div>
     )
 
     return (
-      <React.Fragment>
+      <div className="container">
         {installType === 'development' && developmentOptions}
-        <h1>Options</h1>
-        <input type="checkbox" checked={enabled} onChange={() => {
-          this.setState((prevState) => ({
-            enabled: !prevState.enabled
-          }))
-        }} />
-        <label>Enabled</label>
-        <br />
-        <br />
-        <button onClick={async () => {
-          const { enabled, checkUrl } = this.state
-          await browser.storage.sync.set({ enabled, checkUrl })
-          alert('Options saved')
-          browser.tabs.reload()
-        }}>
-    Save
-        </button>
-        <br />
-        <br />
+        <div className="row">
+          <div className="col-sm">
+            <h1>Options</h1>
+            <input type="checkbox" checked={enabled} onChange={() => {
+              this.setState((prevState) => ({
+                enabled: !prevState.enabled
+              }))
+            }} />
+            <label>Enabled</label>
+            <br />
+            <button onClick={async () => {
+              const { enabled, checkUrl } = this.state
+              await browser.storage.sync.set({ enabled, checkUrl })
+              alert('Options saved')
+              browser.tabs.reload()
+            }}>
+              Save
+            </button>
+          </div>
+        </div>
         <Version />
-      </React.Fragment>
+      </div>
     )
   }
 }

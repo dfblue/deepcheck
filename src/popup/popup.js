@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import './popup.css'
 import Version from '../utils/Version'
+import '../css/main.css'
 
 class Popup extends React.Component {
   constructor () {
@@ -19,7 +19,7 @@ class Popup extends React.Component {
 
   render () {
     return (
-      <React.Fragment>
+      <div className="container">
         <h1>Deepcheck</h1>
         <p>The internet&apos;s missing reputation checker</p>
         <input type="checkbox" checked={ this.state.enabled } onChange={(target) => {
@@ -35,7 +35,7 @@ class Popup extends React.Component {
         <br />
         <br />
         <Version />
-      </React.Fragment>
+      </div>
     )
   }
 }
