@@ -1,6 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import './popup.css'
+import Version from '../utils/Version'
 
 class Popup extends React.Component {
   constructor () {
@@ -19,8 +20,8 @@ class Popup extends React.Component {
   render () {
     return (
       <React.Fragment>
-        <h1>80</h1>
-        <p>This webpage is trustworthy because...</p>
+        <h1>Deepcheck</h1>
+        <p>The internet&apos;s missing reputation checker</p>
         <input type="checkbox" checked={ this.state.enabled } onChange={(target) => {
           chrome.storage.sync.set({ enabled: !this.state.enabled }, () => {
             this.setState((prevState) => ({
@@ -31,7 +32,9 @@ class Popup extends React.Component {
           })
         }} />
         <label>Enabled</label>
-        <script src="popup.js"></script>
+        <br />
+        <br />
+        <Version />
       </React.Fragment>
     )
   }

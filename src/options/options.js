@@ -1,15 +1,74 @@
-const page = document.getElementById('buttonDiv')
-const kButtonColors = ['#3aa757', '#e8453c', '#f9bb2d', '#4688f1']
-function constructOpts (kButtonColors) {
-  for (const item of kButtonColors) {
-    const btn = document.createElement('button')
-    btn.style.backgroundColor = item
-    btn.addEventListener('click', function () {
-      chrome.storage.sync.set({ color: item }, function () {
-        console.log(`Color is ${item}`)
-      })
+import 'core-js/stable'
+import 'regenerator-runtime/runtime'
+import React from 'react'
+import ReactDOM from 'react-dom'
+import browser from 'webextension-polyfill'
+import Version from '../utils/Version'
+
+class Options extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.state = {
+      enabled: true,
+      checkUrl: '',
+      installType: null
+    }
+  }
+
+  async componentDidMount () {
+    const { enabled, checkUrl } = await browser.storage.sync.get(['enabled', 'checkUrl'])
+    const { installType } = await browser.management.getSelf()
+
+    this.setState({
+      enabled,
+      checkUrl,
+      installType
     })
-    page.appendChild(btn)
+  }
+
+  render () {
+    const { enabled, checkUrl, installType } = this.state
+
+    const developmentOptions = (
+      <>
+        <h1>Development options</h1>
+        <label>Check endpoint</label>
+        <br />
+        <input type="text" name="endpoint" value={checkUrl} onChange={(event) => {
+          this.setState({
+            checkUrl: event.target.value
+          })
+        }} />
+      </>
+    )
+
+    return (
+      <React.Fragment>
+        {installType === 'development' && developmentOptions}
+        <h1>Options</h1>
+        <input type="checkbox" checked={enabled} onChange={() => {
+          this.setState((prevState) => ({
+            enabled: !prevState.enabled
+          }))
+        }} />
+        <label>Enabled</label>
+        <br />
+        <br />
+        <button onClick={async () => {
+          const { enabled, checkUrl } = this.state
+          await browser.storage.sync.set({ enabled, checkUrl })
+          alert('Options saved')
+          browser.tabs.reload()
+        }}>
+    Save
+        </button>
+        <br />
+        <br />
+        <Version />
+      </React.Fragment>
+    )
   }
 }
-constructOpts(kButtonColors)
+
+ReactDOM.render(<Options />, document.getElementById('options'))
