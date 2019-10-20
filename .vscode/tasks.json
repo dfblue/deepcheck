@@ -28,6 +28,11 @@
       "type": "npm",
       "script": "webext:package",
       "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "webext:storybook",
+      "problemMatcher": []
     }
   ]
 }

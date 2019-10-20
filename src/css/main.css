@@ -1,12 +1,51 @@
 @font-face {
   font-family: 'Space Mono';
   src: url('../fonts/SpaceMono-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src: url('../fonts/SpaceMono-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Space Mono';
+  src: url('../fonts/SpaceMono-BoldItalic.ttf');
+  font-weight: bold;
+  font-style: italic;
+}
+
+/* @font-face {
+  font-family: 'Karla';
+  src: url('../fonts/Karla-Regular.ttf');
+  font-weight: normal;
+  font-style: normal;
 }
 
 @font-face {
   font-family: 'Karla';
-  src: url('../fonts/Karla-Regular.ttf');
+  src: url('../fonts/Karla-Bold.ttf');
+  font-weight: bold;
+  font-style: normal;
+} */
+
+/* @font-face {
+  font-family: 'Karla';
+  src: url('../fonts/Karla-BoldItalic.ttf');
+  font-weight: bold;
+  font-style: italic;
 }
+
+@font-face {
+  font-family: 'Karla';
+  src: url('../fonts/Karla-Italic.ttf');
+  font-weight: normal;
+  font-style: italic;
+} */
 
 @import url(bootstrap-reboot.min.css);
 @import url(bootstrap-grid.min.css);
@@ -14,8 +53,18 @@
 
 body {
   font-family: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Helvetica Neue', sans-serif;
+  text-rendering: optimizeLegibility;
 }
 
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Space Mono', monospace;
+}
+
+h1 {
+  font-weight: bold;
+}
+
+h2 {
+  font-weight: bold;
+  font-style: italic;
 }
