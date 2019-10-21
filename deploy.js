@@ -7,11 +7,9 @@ const chromeWebstore = require('chrome-webstore-upload')
 
 require('dotenv').config()
 
-const distributionGroup = process.argv[2]
-if (distributionGroup) {
-  const argErrorMessage = '1st argument should specify distribution group "default" or "trustedTesters"'
-  assert(distributionGroup.match(/(default|trustedTesters)/g), argErrorMessage)
-}
+const distributionGroup = process.argv[2] || 'default'
+const argErrorMessage = '1st argument should specify distribution group "default" or "trustedTesters"'
+assert(distributionGroup.match(/(default|trustedTesters)/g), argErrorMessage)
 
 const main = async () => {
   const {
