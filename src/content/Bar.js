@@ -12,17 +12,13 @@ const Bar = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   pointer-events: none;
   width: 100%;
   height: ${barSize}px;
   background-color: ${barColor};
   opacity: 1;
-  padding: 0 1rem 0 1rem;
-
-  :hover {
-    /* add hover styles */
-  }
+  padding: 0 0.2rem 0 0.2rem;
 `
 
 export default class BarComponent extends React.Component {

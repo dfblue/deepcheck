@@ -9,6 +9,7 @@ const fontSize = 13.5
 const animationDelay = 5000
 
 const Metric = styled(_Metric)`
+  display: flex;
   pointer-events: none;
   padding: ${textPadding}px;
   font-family: Karla, 'Helvetica Neue';
@@ -19,8 +20,16 @@ const Metric = styled(_Metric)`
   text-align: center;
 `
 
+// This is used for getting the correct (longest) metric for each section
+// used for sizing the section
+const HiddenMetric = styled(Metric)`
+  visibility: hidden;
+`
+
 const Section = styled.div`
-  margin: 0 1rem 0 1rem;
+  display: flex;
+  flex-direction: column;
+  margin: 0 0.1rem 0 0.1rem;
 `
 
 let timer = null
@@ -52,10 +61,12 @@ export default class SectionComponent extends React.Component {
     const metric = section[index]
     return (
       <Section>
-        <Metric
-          key={JSON.stringify(metric)}
-          {...metric}
-        />
+        {metric && (
+          <Metric {...metric} />
+        )}
+        {section.map(m => (
+          <HiddenMetric key={JSON.stringify(m)} {...m} />
+        ))}
       </Section>
     )
   }

@@ -23,3 +23,4 @@ const sections = [
 ]
 
 export const checks = () => <Bar sections={sections} />
+export const lotsOfChecks = () => <Bar sections={sections.concat(sections)} />
