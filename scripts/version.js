@@ -3,8 +3,9 @@
 const assert = require('assert')
 const fs = require('fs')
 const semver = require('semver')
-const gitWebext = require('simple-git/promise')('.')
-const gitServer = require('simple-git/promise')('../deepcheck-server')
+const path = require('path')
+const gitWebext = require('simple-git/promise')(path.join(__dirname, '..'))
+const gitServer = require('simple-git/promise')(path.join(__dirname, '../../deepcheck-server'))
 
 const main = async () => {
   const status1 = await gitWebext.status()
@@ -18,11 +19,11 @@ const main = async () => {
   assert(release, argErrorMessage)
   assert(release.match(/(major|minor|patch)/g), argErrorMessage)
 
-  const manifest = './src/manifest.json'
-  const pkg = './package.json'
-  const packageLock = './package-lock.json'
-  const serverPkg = '../deepcheck-server/package.json'
-  const serverPackageLock = '../deepcheck-server/package-lock.json'
+  const manifest = path.join(__dirname, '../src/manifest.json')
+  const pkg = path.join(__dirname, '../package.json')
+  const packageLock = path.join(__dirname, '../package-lock.json')
+  const serverPkg = path.join(__dirname, '../../deepcheck-server/package.json')
+  const serverPackageLock = path.join(__dirname, '../../deepcheck-server/package-lock.json')
 
   let nextVersion = null
 
@@ -44,15 +45,17 @@ const main = async () => {
     fs.appendFileSync(p, '\n')
   })
 
-  const api = './src/utils/api.js'
+  const api = path.join(__dirname, '../src/utils/api.js')
   fs.writeFileSync(api, `module.exports = 'https://deepcheck.dfblue.com/api/v${semver.major(nextVersion)}'\n`)
 
   await gitWebext.add('.')
   await gitServer.add('.')
   const commit1 = await gitWebext.commit(nextVersion)
   const commit2 = await gitServer.commit(nextVersion)
-  await gitWebext.addTag(nextVersion).pushTags()
-  await gitServer.addTag(nextVersion).pushTags()
+  await gitWebext.addTag(nextVersion)
+  await gitServer.addTag(nextVersion)
+  await gitWebext.pushTags()
+  await gitServer.pushTags()
   console.log(`\nBumped versions and commited/tagged\n(webext: ${commit1.commit})\n(server: ${commit2.commit}).`)
 }
 
