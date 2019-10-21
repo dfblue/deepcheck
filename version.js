@@ -3,38 +3,46 @@
 const assert = require('assert')
 const fs = require('fs')
 const semver = require('semver')
+const git = require('simple-git/promise')()
 
-const release = process.argv[2]
+const main = async () => {
+  const status = await git.status()
+  assert(status.files.length === 0, `Git working directory should be clean.\n${JSON.stringify(status, null, 2)}`)
 
-const argErrorMessage = 'Only argument should be: major | minor | patch'
-assert(release, argErrorMessage)
-assert(release.match(/(major|minor|patch)/g), argErrorMessage)
+  const release = process.argv[2]
 
-const manifest = './src/manifest.json'
-const pkg = './package.json'
-const packageLock = './package-lock.json'
-const serverPkg = '../deepcheck-server/package.json'
-const serverPackageLock = '../deepcheck-server/package-lock.json'
+  const argErrorMessage = 'Only argument should be: major | minor | patch'
+  assert(release, argErrorMessage)
+  assert(release.match(/(major|minor|patch)/g), argErrorMessage)
 
-let nextVersion = null
+  const manifest = './src/manifest.json'
+  const pkg = './package.json'
+  const packageLock = './package-lock.json'
+  const serverPkg = '../deepcheck-server/package.json'
+  const serverPackageLock = '../deepcheck-server/package-lock.json'
 
-const paths = [manifest, pkg, packageLock, serverPkg, serverPackageLock]
+  let nextVersion = null
 
-paths.forEach((p) => {
-  const file = fs.readFileSync(p)
-  const json = JSON.parse(file)
-  const currentVersion = json.version
-  if (!nextVersion) {
-    nextVersion = semver.inc(currentVersion, release)
-  }
+  const paths = [manifest, pkg, packageLock, serverPkg, serverPackageLock]
 
-  json.version = nextVersion
+  paths.forEach((p) => {
+    const file = fs.readFileSync(p)
+    const json = JSON.parse(file)
+    const currentVersion = json.version
+    if (!nextVersion) {
+      nextVersion = semver.inc(currentVersion, release)
+    }
 
-  console.log(`${p} - Incrementing ${currentVersion} by ${release} resulting in ${nextVersion}`)
+    json.version = nextVersion
 
-  fs.writeFileSync(p, JSON.stringify(json, null, 2))
-  fs.appendFileSync(p, '\n')
-})
+    console.log(`${p} - Incrementing ${currentVersion} by ${release} resulting in ${nextVersion}`)
 
-const api = './src/utils/api.js'
-fs.writeFileSync(api, `module.exports = 'https://deepcheck.dfblue.com/api/v${semver.major(nextVersion)}'\n`)
+    fs.writeFileSync(p, JSON.stringify(json, null, 2))
+    fs.appendFileSync(p, '\n')
+  })
+
+  const api = './src/utils/api.js'
+  fs.writeFileSync(api, `module.exports = 'https://deepcheck.dfblue.com/api/v${semver.major(nextVersion)}'\n`)
+}
+
+main().then()
