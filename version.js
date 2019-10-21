@@ -49,9 +49,11 @@ const main = async () => {
 
   await gitWebext.add('.')
   await gitServer.add('.')
-  const commit1 = await gitWebext.commit(`v${nextVersion}`)
-  const commit2 = await gitServer.commit(`v${nextVersion}`)
-  console.log(`\nBumped versions and commited\n(webext: ${commit1.commit})\n(server: ${commit2.commit}).`)
+  const commit1 = await gitWebext.commit(nextVersion)
+  const commit2 = await gitServer.commit(nextVersion)
+  await gitWebext.addTag(nextVersion).pushTags()
+  await gitServer.addTag(nextVersion).pushTags()
+  console.log(`\nBumped versions and commited/tagged\n(webext: ${commit1.commit})\n(server: ${commit2.commit}).`)
 }
 
 main().then()
