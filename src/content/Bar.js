@@ -12,6 +12,7 @@ const Bar = styled.div`
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
+  justify-content: flex-end;
   pointer-events: none;
   width: 100%;
   height: ${barSize}px;
@@ -39,7 +40,7 @@ export default class BarComponent extends React.Component {
 }
 
 BarComponent.defaultProps = {
-  sections: [[]]
+  sections: []
 }
 
 BarComponent.propTypes = {

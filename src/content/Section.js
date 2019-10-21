@@ -6,7 +6,7 @@ import _Metric from './Metric'
 const textColor = '#6C6C6C'
 const textPadding = 3
 const fontSize = 13.5
-const animationDelay = 6000
+const animationDelay = 5000
 
 const Metric = styled(_Metric)`
   pointer-events: none;
@@ -33,11 +33,13 @@ export default class SectionComponent extends React.Component {
   }
 
   componentDidMount () {
-    timer = setInterval(() => {
-      this.setState((prevState) => {
-        return { index: (prevState.index + 1) % this.props.section.length }
-      })
-    }, animationDelay)
+    if (this.props.section.length > 1) {
+      timer = setInterval(() => {
+        this.setState((prevState) => {
+          return { index: (prevState.index + 1) % this.props.section.length }
+        })
+      }, animationDelay)
+    }
   }
 
   componentWillUnmount () {
@@ -59,14 +61,10 @@ export default class SectionComponent extends React.Component {
   }
 }
 
-SectionComponent.defaultProps = {
-  section: []
-}
-
 SectionComponent.propTypes = {
   section: PropTypes.arrayOf(PropTypes.shape({
     title: PropTypes.string.isRequired,
     value: PropTypes.string.isRequired,
     highlight: PropTypes.string
-  }))
+  })).isRequired
 }
