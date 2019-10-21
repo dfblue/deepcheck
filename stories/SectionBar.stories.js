@@ -1,60 +1,25 @@
 import React from 'react'
-import SectionBar from '../src/content/SectionBar'
+import Bar from '../src/content/Bar'
 
 export default {
-  title: 'SectionBar'
+  title: 'Bar'
 }
 
 const sections = [
   [
-    {
-      title: 'Alexa Rank',
-      value: '#1234',
-      highlight: '#E0C812'
-    }
+    { title: 'Web Rank', value: '#2727630', highlight: '#12E0C6' }
   ],
   [
-    {
-      title: 'Google',
-      value: 'Safe',
-      highlight: '#12E02A'
-    }
+    { title: 'Registered', value: 'Jul 17, 2019' }
   ],
   [
-    {
-      title: 'Twitter',
-      value: '1.4k',
-      highlight: '#FF6200'
-    },
-    {
-      title: 'Facebook',
-      value: '1.5M',
-      highlight: '#12E02A'
-    }
+    { title: 'Google', value: 'Safe', highlight: '#12E02A' }
   ],
   [
-    {
-      title: 'Fortune',
-      value: '500'
-    }
+    { title: 'Twitter', value: '@dfblue' },
+    { title: 'Followers', value: '38' },
+    { title: 'Tweets', value: '50' }
   ]
 ]
 
-export const checks = () => <SectionBar sections={sections} />
-
-/*
-
-const sections = [
-  [
-    'Google <span style="color: green">safe</span>'
-  ],
-  [
-    'Twitter 1.4k',
-    'Facebook 28M'
-  ],
-  [
-    'Fortune 500'
-  ]
-]
-
-*/
+export const checks = () => <Bar sections={sections} />
