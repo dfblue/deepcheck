@@ -4,8 +4,7 @@ import PropTypes from 'prop-types'
 const Metric = (props) => (
   <div className={props.className}>
     {props.title}
-    { ' ' }
-    <span style={{ color: props.highlight }}>
+    <span style={{ color: props.highlight, marginLeft: '.3rem' }}>
       {props.value}
     </span>
   </div>

@@ -29,7 +29,7 @@ const HiddenMetric = styled(Metric)`
 const Section = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 0.1rem 0 0.1rem;
+  margin: 0 .5rem 0 .5rem;
 `
 
 let timer = null
