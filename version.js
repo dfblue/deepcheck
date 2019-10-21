@@ -7,7 +7,7 @@ const git = require('simple-git/promise')()
 
 const main = async () => {
   const status = await git.status()
-  assert(status.files.length === 0, `Git working directory should be clean.\n${JSON.stringify(status, null, 2)}`)
+  assert(status.files.length === 0, `\n\nGit working directory must be clean before versioning.\n\n${JSON.stringify(status, null, 2)}`)
 
   const release = process.argv[2]
 
@@ -43,6 +43,10 @@ const main = async () => {
 
   const api = './src/utils/api.js'
   fs.writeFileSync(api, `module.exports = 'https://deepcheck.dfblue.com/api/v${semver.major(nextVersion)}'\n`)
+
+  await git.add(paths)
+  const commit = await git.commit(`v${nextVersion}`)
+  console.log(`\nBumped versions and commited ${commit.commit}.\n\n${JSON.stringify(commit.summary, null, 2)}`)
 }
 
 main().then()
