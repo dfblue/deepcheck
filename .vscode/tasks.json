@@ -33,6 +33,11 @@
       "type": "npm",
       "script": "webext:version:minor",
       "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "webext:version:patch",
+      "problemMatcher": []
     }
   ]
 }
