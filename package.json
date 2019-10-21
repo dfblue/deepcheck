@@ -5,7 +5,9 @@
   "scripts": {
     "webext:dev": "npm run webext:clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
     "webext:clean": "rm -rf build/",
-    "webext:version": "node version.js patch",
+    "webext:version:patch": "node version.js patch",
+    "webext:version:minor": "node version.js minor",
+    "webext:version:major": "node version.js major",
     "webext:build": "npm run webext:clean && NODE_ENV=production npx webpack --config webpack.config.js --mode=production",
     "webext:package": "cd build && zip -r $npm_package_name-$npm_package_version.zip *",
     "webext:deploy": "npm run webext:build && npm run webext:package && node deploy.js build/$npm_package_name-$npm_package_version.zip",

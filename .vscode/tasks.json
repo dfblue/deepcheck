@@ -10,11 +10,6 @@
     },
     {
       "type": "npm",
-      "script": "webext:version",
-      "problemMatcher": []
-    },
-    {
-      "type": "npm",
       "script": "webext:deploy",
       "problemMatcher": []
     },
@@ -32,6 +27,11 @@
     {
       "type": "npm",
       "script": "webext:storybook",
+      "problemMatcher": []
+    },
+    {
+      "type": "npm",
+      "script": "webext:version:minor",
       "problemMatcher": []
     }
   ]
