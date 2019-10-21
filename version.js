@@ -3,11 +3,14 @@
 const assert = require('assert')
 const fs = require('fs')
 const semver = require('semver')
-const git = require('simple-git/promise')()
+const gitWebext = require('simple-git/promise')('.')
+const gitServer = require('simple-git/promise')('../deepcheck-server')
 
 const main = async () => {
-  const status = await git.status()
-  assert(status.files.length === 0, `\n\nGit working directory must be clean before versioning.\n\n${JSON.stringify(status, null, 2)}`)
+  const status1 = await gitWebext.status()
+  const status2 = await gitServer.status()
+  assert(status1.files.length === 0, `\n\nGit working directory must be clean before versioning.\n\n${JSON.stringify(status, null, 2)}`)
+  assert(status2.files.length === 0, `\n\nGit working directory must be clean before versioning.\n\n${JSON.stringify(status, null, 2)}`)
 
   const release = process.argv[2]
 
@@ -44,9 +47,11 @@ const main = async () => {
   const api = './src/utils/api.js'
   fs.writeFileSync(api, `module.exports = 'https://deepcheck.dfblue.com/api/v${semver.major(nextVersion)}'\n`)
 
-  await git.add(paths)
-  const commit = await git.commit(`v${nextVersion}`)
-  console.log(`\nBumped versions and commited ${commit.commit}.\n\n${JSON.stringify(commit.summary, null, 2)}`)
+  await gitWebext.add('.')
+  await gitServer.add('.')
+  const commit1 = await gitWebext.commit(`v${nextVersion}`)
+  const commit2 = await gitServer.commit(`v${nextVersion}`)
+  console.log(`\nBumped versions and commited\n(webext: ${commit1.commit})\n(server: ${commit2.commit}).`)
 }
 
 main().then()
