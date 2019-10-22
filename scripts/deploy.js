@@ -4,13 +4,10 @@
 const assert = require('assert')
 const fs = require('fs')
 const chromeWebstore = require('chrome-webstore-upload')
+const manifest = require('../src/manifest.json')
 const coda = require('./coda')
 
 require('dotenv').config()
-
-const distributionGroup = process.argv[2] || 'default'
-const argErrorMessage = '1st argument should specify distribution group "default" or "trustedTesters"'
-assert(distributionGroup.match(/(default|trustedTesters)/g), argErrorMessage)
 
 const main = async () => {
   const {
@@ -40,14 +37,6 @@ const main = async () => {
     throw new Error(`Upload errors: ${uploadErrorsMessage}`)
   }
 
-  console.log('\n\nPublishing new version...')
-  // https://developer.chrome.com/webstore/webstore_api/items/publish
-  const publish = await webstoreClient.publish(distributionGroup)
-  const publishStatus = publish.status.join('\t')
-  const publishStatusDetails = publish.statusDetail.join('\t')
-  console.log(`\n\nPublish status: ${publishStatus}`)
-  console.log(`\n\nPublish details: ${publishStatusDetails}`)
-
   console.log('\n\nRecording version in Coda...')
   const versionsDoc = 'LXurD07hoa'
   const versionsTable = 'versions'
@@ -56,9 +45,8 @@ const main = async () => {
       {
         cells: [
           { column: 'date', value: new Date() },
-          { column: 'version', value: require('./src/manifest.json').version },
+          { column: 'version', value: manifest.version },
           { column: 'status', value: upload.uploadState },
-          { column: 'notes', value: `${publishStatusDetails}` },
           { column: 'store_link', value: `https://chrome.google.com/webstore/detail/deepcheck/${item_id}` }
         ]
       }
@@ -69,6 +57,14 @@ const main = async () => {
     body: JSON.stringify(versionData)
   })
   console.log(`Recorded to Coda:\n${JSON.stringify(res, null, 2)}`)
+
+  // console.log('\n\nPublishing new version...')
+  // // https://developer.chrome.com/webstore/webstore_api/items/publish
+  // const publish = await webstoreClient.publish() // trustedTesters if private version
+  // const publishStatus = publish.status.join('\t')
+  // const publishStatusDetails = publish.statusDetail.join('\t')
+  // console.log(`\n\nPublish status: ${publishStatus}`)
+  // console.log(`\n\nPublish details: ${publishStatusDetails}`)
 }
 
-main().catch(e => console.error(e.message))
+main().catch(e => console.error(e))
