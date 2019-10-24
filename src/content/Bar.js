@@ -9,6 +9,8 @@ const barSize = 22
 // Create styled components out here so we don't recreate on each render
 const Bar = styled.div`
   position: fixed;
+  left: 0;
+  right: 0;
   display: flex;
   flex-direction: row;
   flex-wrap: nowrap;
@@ -18,7 +20,6 @@ const Bar = styled.div`
   height: ${barSize}px;
   background-color: ${barColor};
   opacity: 1;
-  padding: 0 1rem 0 1rem;
 `
 
 export default class BarComponent extends React.Component {
