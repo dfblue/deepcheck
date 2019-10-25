@@ -37,3 +37,10 @@ const sectionsWithoutTwitter = [
 export const checks = () => <Bar sections={sections} />
 export const lotsOfChecks = () => <Bar sections={sections.concat(sections)} />
 export const noTwitter = () => <Bar sections={sectionsWithoutTwitter} />
+export const background = () => {
+  return (
+    <div style={{ background: 'white', width: '100vw', height: '100vh' }}>
+      <Bar sections={sections} />
+    </div>
+  )
+}

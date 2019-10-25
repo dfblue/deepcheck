@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import Section from './Section'
 
-const barColor = '#333333'
+const barColor = 'rgba(51,51,51,0.7)'
 const barSize = 22
 
 // Create styled components out here so we don't recreate on each render

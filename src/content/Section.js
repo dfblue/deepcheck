@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import PropTypes from 'prop-types'
 import _Metric from './Metric'
 
-const textColor = '#6C6C6C'
+const textColor = '#CCC'
 const textPadding = 3
 const fontSize = 13.5
 const animationDelay = 5000
