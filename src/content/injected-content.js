@@ -3,7 +3,7 @@ import 'regenerator-runtime/runtime'
 import browser from 'webextension-polyfill'
 import React from 'react'
 import ReactDOM from 'react-dom'
-import Bar from './Bar'
+import Bar from './ui/Bar'
 
 /* Remember, you can't import css because it wouldn't be bundled into anything since this is content script that manipulates the loaded page */
 
