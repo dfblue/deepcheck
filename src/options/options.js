@@ -13,62 +13,113 @@ class Options extends React.Component {
     this.state = {
       enabled: true,
       checkUrl: '',
+      disabledDomains: [],
       installType: null
     }
   }
 
   async componentDidMount () {
-    const { enabled, checkUrl } = await browser.storage.sync.get(['enabled', 'checkUrl'])
+    const { enabled, checkUrl, disabledDomains } = await browser.storage.sync.get(['enabled', 'checkUrl', 'disabledDomains'])
     const { installType } = await browser.management.getSelf()
 
     this.setState({
       enabled,
       checkUrl,
+      disabledDomains: disabledDomains || [],
       installType
     })
   }
 
+  async componentDidUpdate (prevProps, prevState) {
+    const { enabled, checkUrl, disabledDomains } = this.state
+    await browser.storage.sync.set({ enabled, checkUrl, disabledDomains })
+  }
+
   render () {
-    const { enabled, checkUrl, installType } = this.state
+    const { enabled, checkUrl, disabledDomains, installType } = this.state
 
     const developmentOptions = (
-      <div className="row">
-        <div className="col-sm">
-          <h1>Development options</h1>
-          <label>Check endpoint</label>
-          <br />
-          <input type="text" name="endpoint" value={checkUrl} onChange={(event) => {
-            this.setState({
-              checkUrl: event.target.value
-            })
-          }} />
+      <>
+        <h3>Development options</h3>
+        <div className="row">
+          <div className="col-sm">
+            <label>Check endpoint</label>
+            <br />
+            <input type="text" name="endpoint" value={checkUrl} onChange={(event) => {
+              this.setState({
+                checkUrl: event.target.value
+              })
+            }} />
+          </div>
         </div>
-      </div>
+      </>
+    )
+
+    const disabledDomainsTable = (
+      <>
+        <table
+          className="table table-sm table-striped"
+        >
+          <thead></thead>
+          <tbody
+            style={{
+              display: 'block',
+              height: '6rem',
+              overflowY: 'auto'
+            }}
+          >
+            {disabledDomains.map(dd => (
+              <tr key={dd}>
+                <td width="20px">
+                  <button className="btn btn-xs" onClick={() => {
+                    this.setState((prevState) => ({
+                      disabledDomains: prevState.disabledDomains.filter(pd => pd !== dd)
+                    }))
+                  }}>
+                    ⓧ
+                  </button>
+                </td>
+                <td width="100%">
+                  {dd}
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+        <button className="btn btn-primary" onClick={() => {
+          const newDomain = prompt('Enter a domain to disable checking (ex: google.com)')
+          this.setState((prevState) => {
+            prevState.disabledDomains.push(newDomain)
+            return {
+              disabledDomains: prevState.disabledDomains
+            }
+          })
+        }}>
+          Add
+        </button>
+      </>
     )
 
     return (
       <div className="container">
         {installType === 'development' && developmentOptions}
+        <h3>Options</h3>
         <div className="row">
-          <div className="col-sm">
-            <h1>Options</h1>
+          <div className="col-sm-3">
+            <label>Enabled</label>
+            <br />
             <input type="checkbox" checked={enabled} onChange={() => {
               this.setState((prevState) => ({
                 enabled: !prevState.enabled
               }))
             }} />
-            <label>Enabled</label>
-            <br />
-            <button onClick={async () => {
-              const { enabled, checkUrl } = this.state
-              await browser.storage.sync.set({ enabled, checkUrl })
-              alert('Options saved')
-              browser.tabs.reload()
-            }}>
-              Save
-            </button>
+          </div>
+          <div className="col-sm-3">
+            <label>Disabled domains</label>
+            {disabledDomainsTable}
           </div>
         </div>
+        <hr />
         <Version />
       </div>
     )
