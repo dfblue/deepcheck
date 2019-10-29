@@ -65,6 +65,7 @@
     "webpack-extension-reloader": "^1.1.1"
   },
   "dependencies": {
+    "@primer/octicons-react": "^9.2.0",
     "core-js": "^3.2.1",
     "lodash": "^4.17.15",
     "prop-types": "^15.7.2",

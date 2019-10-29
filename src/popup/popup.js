@@ -4,6 +4,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import browser from 'webextension-polyfill'
 import difference from 'lodash/difference'
+import Octicon, { ChevronRight } from '@primer/octicons-react'
 import Version from '../utils/Version'
 import '../css/main.css'
 
@@ -64,7 +65,7 @@ class Popup extends React.Component {
         <h1>Deepcheck</h1>
         <p>The internet&apos;s missing reputation checker</p>
         <br />
-        <p>&rsaquo; {hostname}</p>
+        <p><Octicon icon={ChevronRight} /> {hostname}</p>
         <div className="btn-group-toggle" data-toggle="buttons">
           <label className="btn btn-primary btn-sm">
             <input type="checkbox" checked={this.domainEnabled(hostname, disabledDomains)} onChange={() => {

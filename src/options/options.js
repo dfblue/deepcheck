@@ -3,6 +3,7 @@ import 'regenerator-runtime/runtime'
 import React from 'react'
 import ReactDOM from 'react-dom'
 import browser from 'webextension-polyfill'
+import Octicon, { X } from '@primer/octicons-react'
 import Version from '../utils/Version'
 import '../css/main.css'
 
@@ -76,7 +77,7 @@ class Options extends React.Component {
                       disabledDomains: prevState.disabledDomains.filter(pd => pd !== dd)
                     }))
                   }}>
-                    ⓧ
+                    <Octicon icon={ X } />
                   </button>
                 </td>
                 <td width="100%">
