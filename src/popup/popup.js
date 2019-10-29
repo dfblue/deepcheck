@@ -64,7 +64,7 @@ class Popup extends React.Component {
         <h1>Deepcheck</h1>
         <p>The internet&apos;s missing reputation checker</p>
         <br />
-        <p>› {hostname}</p>
+        <p>&rsaquo; {hostname}</p>
         <div className="btn-group-toggle" data-toggle="buttons">
           <label className="btn btn-primary btn-sm">
             <input type="checkbox" checked={this.domainEnabled(hostname, disabledDomains)} onChange={() => {
