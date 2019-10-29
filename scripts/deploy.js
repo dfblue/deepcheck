@@ -42,16 +42,21 @@ const main = async () => {
 
   console.log('\n\nRecording version in Coda...')
   // Get commit messages between this version and last
-  const gits = { extension: gitWebext, server: gitServer }
-  const notes = await Promise.all(Object.entries(gits).map(async ([name, git]) => {
-    const tags = (await git.tags()).all
-    const from = tags[tags.length - 2]
-    const to = tags[tags.length - 1]
-    const changes = (await git.log({ to, from })).all.slice(1)
-    const lines = [`**${name}**`]
-    lines.push(...changes.map(c => `* [${c.author_email}] ${c.message}`))
-    return lines
-  }))
+  let notes = ''
+  try {
+    const gits = { Extension: gitWebext, Server: gitServer }
+    notes = await Promise.all(Object.entries(gits).map(async ([name, git]) => {
+      const tags = (await git.tags()).all
+      const from = tags[tags.length - 2]
+      const to = tags[tags.length - 1]
+      const changes = (await git.log({ to, from })).all.slice(1)
+      const lines = [name]
+      lines.push(...changes.map(c => `- [${c.author_email}] ${c.message}`))
+      return lines
+    }))
+  } catch (err) {
+    console.error(`Could not generate notes for Coda: ${err}`)
+  }
   const versionsDoc = 'LXurD07hoa'
   const versionsTable = 'versions'
   const versionData = {
