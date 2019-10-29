@@ -67,7 +67,6 @@ const main = async () => {
           { column: 'date', value: new Date() },
           { column: 'version', value: manifest.version },
           { column: 'status', value: upload.uploadState },
-          { column: 'store_link', value: `https://chrome.google.com/webstore/detail/deepcheck/${item_id}` },
           { column: 'notes', value: flattenDeep(notes).join('\n') }
         ]
       }
