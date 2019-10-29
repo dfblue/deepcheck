@@ -5,6 +5,9 @@ import ReactDOM from 'react-dom'
 import browser from 'webextension-polyfill'
 import Octicon, { X } from '@primer/octicons-react'
 import Version from '../utils/Version'
+import Feedback from '../utils/Feedback'
+import ClientId from '../utils/ClientId'
+import Flexbox from '../utils/Flexbox'
 import '../css/main.css'
 
 class Options extends React.Component {
@@ -122,7 +125,17 @@ class Options extends React.Component {
           </div>
         </div>
         <hr />
-        <Version />
+        <Flexbox style={{ flexWrap: 'wrap' }}>
+          <Flexbox style={{ paddingRight: '1rem' }}>
+            <Version />
+          </Flexbox>
+          <Flexbox style={{ paddingRight: '1rem' }}>
+            <ClientId />
+          </Flexbox>
+          <Flexbox>
+            <Feedback />
+          </Flexbox>
+        </Flexbox>
       </div>
     )
   }

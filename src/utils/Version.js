@@ -5,7 +5,9 @@ const Version = (props) => {
   const version = browser.runtime.getManifest().version
 
   return (
-    <p><small>version {version}</small></p>
+    <>
+      version {version}
+    </>
   )
 }
 

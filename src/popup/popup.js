@@ -6,6 +6,8 @@ import browser from 'webextension-polyfill'
 import difference from 'lodash/difference'
 import Octicon, { ChevronRight } from '@primer/octicons-react'
 import Version from '../utils/Version'
+import Feedback from '../utils/Feedback'
+import Flexbox from '../utils/Flexbox'
 import '../css/main.css'
 
 class Popup extends React.Component {
@@ -75,7 +77,16 @@ class Popup extends React.Component {
           </label>
         </div>
         <br />
-        <Version />
+        <small>
+          <Flexbox style={{ flexWrap: 'wrap' }}>
+            <Flexbox style={{ paddingRight: '.5rem' }}>
+              <Version />
+            </Flexbox>
+            <Flexbox>
+              <Feedback />
+            </Flexbox>
+          </Flexbox>
+        </small>
       </div>
     )
   }
