@@ -71,7 +71,7 @@ class Options extends React.Component {
             {disabledDomains.map(dd => (
               <tr key={dd}>
                 <td width="20px">
-                  <button className="btn btn-xs" onClick={() => {
+                  <button className="btn btn-sm" onClick={() => {
                     this.setState((prevState) => ({
                       disabledDomains: prevState.disabledDomains.filter(pd => pd !== dd)
                     }))
@@ -88,6 +88,7 @@ class Options extends React.Component {
         </table>
         <button className="btn btn-primary" onClick={() => {
           const newDomain = prompt('Enter a domain to disable checking (ex: google.com)')
+          if (!newDomain || newDomain === '') { return }
           this.setState((prevState) => {
             prevState.disabledDomains.push(newDomain)
             return {
@@ -106,7 +107,7 @@ class Options extends React.Component {
         <h3>Options</h3>
         <div className="row">
           <div className="col-sm-3">
-            <label>Enabled</label>
+            <label>Check enabled</label>
             <br />
             <input type="checkbox" checked={enabled} onChange={() => {
               this.setState((prevState) => ({

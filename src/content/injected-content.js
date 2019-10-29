@@ -7,17 +7,22 @@ import Bar from './ui/Bar'
 
 /* Remember, you can't import css because it wouldn't be bundled into anything since this is content script that manipulates the loaded page */
 
+const render = (component) => {
+  ReactDOM.render(component, document.getElementById('dfb-injected-content'))
+}
+
 window.onload = async () => {
-  const { enabled, clientId, checkUrl } = await browser.storage.sync.get(['enabled', 'clientId', 'checkUrl'])
+  const { enabled, clientId, disabledDomains, checkUrl } = await browser.storage.sync.get(['enabled', 'clientId', 'disabledDomains', 'checkUrl'])
 
   if (!enabled) { return }
+  if (disabledDomains.filter(dd => window.location.hostname.includes(dd)).length > 0) { return }
 
   document.body.style.marginBottom = '22px'
   const wrapper = document.createElement('div')
   wrapper.id = 'dfb-injected-content'
   wrapper.style = 'pointer-events: none; bottom:22px; position: fixed; width: 100%; z-index: 999999;'
   document.body.appendChild(wrapper)
-  ReactDOM.render(<Bar />, document.getElementById('dfb-injected-content')) // render might not be the right method
+  render(<Bar />)
 
   const version = browser.runtime.getManifest().version
   const width = window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth
@@ -39,5 +44,5 @@ window.onload = async () => {
 
   const json = await response.json()
 
-  ReactDOM.render(<Bar sections={ json.sections } />, document.getElementById('dfb-injected-content'))
+  render(<Bar sections={ json.sections } />)
 }
