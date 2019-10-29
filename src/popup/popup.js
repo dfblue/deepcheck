@@ -28,25 +28,23 @@ class Popup extends React.Component {
     })
   }
 
-  matchingDisabledDomains () {
-    const { disabledDomains, url } = this.state
-    const { hostname } = new URL(url)
+  matchingDisabledDomains (hostname, disabledDomains) {
     return disabledDomains.filter(dd => hostname.includes(dd))
   }
 
-  domainEnabled () {
-    return this.matchingDisabledDomains().length === 0
+  domainEnabled (hostname, disabledDomains) {
+    return this.matchingDisabledDomains(hostname, disabledDomains).length === 0
   }
 
   toggleDomain () {
     this.setState((prevState) => {
       const { disabledDomains, url } = prevState
-      if (this.domainEnabled()) { // disable it
-        const { hostname } = new URL(url)
+      const { hostname } = new URL(url)
+      if (this.domainEnabled(hostname, disabledDomains)) { // disable it
         disabledDomains.push(hostname)
         return { disabledDomains }
       } else { // enable it / remove disable
-        const newDisabledDomains = difference(disabledDomains, this.matchingDisabledDomains())
+        const newDisabledDomains = difference(disabledDomains, this.matchingDisabledDomains(hostname, disabledDomains))
         return { disabledDomains: newDisabledDomains }
       }
     })
@@ -58,7 +56,7 @@ class Popup extends React.Component {
   }
 
   render () {
-    const { url } = this.state
+    const { url, disabledDomains } = this.state
     const { hostname } = new URL(url)
 
     return (
@@ -69,10 +67,10 @@ class Popup extends React.Component {
         <p>› {hostname}</p>
         <div className="btn-group-toggle" data-toggle="buttons">
           <label className="btn btn-primary btn-sm">
-            <input type="checkbox" checked={this.domainEnabled()} onChange={() => {
+            <input type="checkbox" checked={this.domainEnabled(hostname, disabledDomains)} onChange={() => {
               this.toggleDomain()
             }} />
-            {this.domainEnabled() ? 'enabled' : 'disabled'}
+            {this.domainEnabled(hostname, disabledDomains) ? 'enabled' : 'disabled'}
           </label>
         </div>
         <br />
