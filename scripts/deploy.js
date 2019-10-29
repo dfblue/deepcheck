@@ -5,6 +5,7 @@ const assert = require('assert')
 const fs = require('fs')
 const path = require('path')
 const chromeWebstore = require('chrome-webstore-upload')
+const flattenDeep = require('lodash/flattenDeep')
 const manifest = require('../src/manifest.json')
 const coda = require('./coda')
 const gitWebext = require('simple-git/promise')(path.join(__dirname, '..'))
@@ -42,7 +43,7 @@ const main = async () => {
 
   console.log('\n\nRecording version in Coda...')
   // Get commit messages between this version and last
-  let notes = ''
+  let notes = []
   try {
     const gits = { Extension: gitWebext, Server: gitServer }
     notes = await Promise.all(Object.entries(gits).map(async ([name, git]) => {
@@ -50,7 +51,7 @@ const main = async () => {
       const from = tags[tags.length - 2]
       const to = tags[tags.length - 1]
       const changes = (await git.log({ to, from })).all.slice(1)
-      const lines = [name]
+      const lines = [`${name}`]
       lines.push(...changes.map(c => `- [${c.author_email}] ${c.message}`))
       return lines
     }))
@@ -67,7 +68,7 @@ const main = async () => {
           { column: 'version', value: manifest.version },
           { column: 'status', value: upload.uploadState },
           { column: 'store_link', value: `https://chrome.google.com/webstore/detail/deepcheck/${item_id}` },
-          { column: 'notes', value: notes.join('\n') }
+          { column: 'notes', value: flattenDeep(notes).join('\n') }
         ]
       }
     ]
