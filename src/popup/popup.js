@@ -25,9 +25,9 @@ class Popup extends React.Component {
     const tabs = await browser.tabs.query({ active: true, currentWindow: true })
     const { url } = tabs[0]
     this.setState({
-      enabled,
-      disabledDomains,
-      url
+      enabled: enabled || false,
+      disabledDomains: disabledDomains || [],
+      url: url || 'https://example.com'
     })
   }
 
