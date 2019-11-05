@@ -1,7 +1,11 @@
 {
   "name": "deepcheck-webext",
   "version": "1.2.7",
-  "description": "",
+  "description": "The internet's missing reputation checker.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/dfblue/deepcheck-webext.git"
+  },
   "scripts": {
     "webext:dev": "npm run webext:clean; NODE_ENV=development npx webpack --config webpack.config.js --mode=development --devtool=cheap-module-source-map --watch",
     "webext:clean": "rm -rf build/",
