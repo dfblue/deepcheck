@@ -23,7 +23,7 @@ npm install
 client_id=XXX-XXX.apps.googleusercontent.com
 client_secret=XXX
 item_id=gedajnkfkgcneabfepklknnplbghkfmo
-refresh_token=XXX
+refresh_token=XXX # get it [here](https://github.com/dfblue/chrome-webstore-upload/blob/HEAD/How%20to%20generate%20Google%20API%20keys.md)
 coda_token=XXX # for recording deployment of new releases
 ```
 
