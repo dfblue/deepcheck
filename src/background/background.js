@@ -27,7 +27,8 @@ browser.runtime.onInstalled.addListener(async () => {
   await browser.storage.sync.set({
     enabled: true,
     clientId: uuidv4(), // generate new id for each installation
-    checkUrl
+    checkUrl,
+    disabledDomains: []
   })
   console.log('Initial storage synced')
 })
